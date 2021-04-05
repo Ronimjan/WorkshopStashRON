@@ -72,7 +72,7 @@
     <Compile Include="CampaignChanger.cs" />
     <Compile Include="WorkshopsCampaignBehavior_DoProduction_Patch.cs" />
     <Compile Include="WorkshopsCampaignBehavior_ConsumeInput_Patch.cs" />
-    <Compile Include="WorkshopsCampaignBehavior_ProductionOutput_Patch.cs" />
+    <Compile Include="WorkshopsCampaignBehavior_ProduceOutput_Patch.cs" />
     <Compile Include="SubModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WorkshopStash.cs" />
