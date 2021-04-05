@@ -1,10 +1,6 @@
-﻿This is a work in progress!
+Big credit to "KeepUsingThisWord" or "mbkutw", who teached me a lot about modding Bannerlord and in general.
+He also is the concept creater and the creater of the first version of this mod.
 
-Helpful information:
-
-(CTRL+Left Click on link to open in your browser)
-Bannerlord Modding Documentation:   https://docs.bannerlordmodding.com/
-Harmony Patching Documentation:     https://harmony.pardeike.net/articles/patching.html
-TaleWorlds Modding Forums:          https://forums.taleworlds.com/index.php?pages/modding/
-Mount and Blade Discord:            https://discordapp.com/invite/mountandblade
-TW Forum - Modding Discord:         https://discordapp.com/invite/ykFVJGQ
+STILL IN WORK
+[INSERT ISSUE/BUG REPORT TEMPLATE]
+[INSERT NNM LINK]
