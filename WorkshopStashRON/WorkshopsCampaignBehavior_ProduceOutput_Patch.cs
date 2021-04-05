@@ -14,17 +14,15 @@ namespace WorkshopStashRON
     [HarmonyPatch(typeof(WorkshopsCampaignBehavior), "ProduceOutput")]
     public static class WorkshopsCampaignBehavior_ProduceOutput_Patch
     {
-        public static bool Prefix(ItemCategory outputItem, Town town, Workshop workshop, int count, bool doNotEffectCapital)
+        public static bool Prefix(ItemObject outputItem, Town town, Workshop workshop, int count, bool doNotEffectCapital)
         {
             if (workshop.Owner != Hero.MainHero) { return true; }
 
             var stash = MBObjectManager.Instance.GetObject<WorkshopStash>(x => x.Town == town);
 
-            var index = stash.Stash.FindIndex(x => x.ItemCategory == outputItem);
-
             if (stash != null && stash.OutputTrue)
             {
-                stash.Stash.AddToCounts(MBObjectManager.Instance.GetObject<ItemObject>(y => y.ItemCategory == outputItem), count);
+                stash.Stash.AddToCounts(outputItem, count);
                 return false;
             }
             return true;
