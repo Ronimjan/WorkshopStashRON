@@ -24,7 +24,7 @@ namespace WorkshopStashRON
 
             if (stash != null && stash.OutputTrue)
             {
-                stash.Stash.AddToCounts(stash.Stash.GetItemAtIndex(index), count);
+                stash.Stash.AddToCounts(MBObjectManager.Instance.GetObject<ItemObject>(y => y.ItemCategory == outputItem), count);
                 return false;
             }
             return true;
