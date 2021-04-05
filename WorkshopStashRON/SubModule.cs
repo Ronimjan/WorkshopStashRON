@@ -2,6 +2,7 @@
 using TaleWorlds.Core;
 using TaleWorlds.MountAndBlade;
 using TaleWorlds.ObjectSystem;
+using HarmonyLib;
 
 namespace WorkshopStashRON
 {
@@ -18,6 +19,7 @@ namespace WorkshopStashRON
                 starter.AddBehavior(new CampaignChanger());
             }
 
+            new HarmonyLib.Harmony("WorkshopStashMod.patcher").PatchAll();
         }
     }
 }
