@@ -70,6 +70,7 @@
   <!-- Files & Classes -->
   <ItemGroup>
     <Compile Include="CampaignChanger.cs" />
+    <Compile Include="WorkshopStashSaveableTypeDefiner.cs" />
     <Compile Include="WorkshopsCampaignBehavior_DoProduction_Patch.cs" />
     <Compile Include="WorkshopsCampaignBehavior_ConsumeInput_Patch.cs" />
     <Compile Include="WorkshopsCampaignBehavior_ProduceOutput_Patch.cs" />

@@ -22,9 +22,6 @@ namespace WorkshopStashRON
 
         private void OnAfterNewGameCreated(CampaignGameStarter starter)
         {
-            var stash = GetCurrentSettlementStash();
-            MBTextManager.SetTextVariable("STASH_INPUT", stash.InputTrue ? "Yes" : "No");
-            MBTextManager.SetTextVariable("STASH_OUTPUT", stash.OutputTrue ? "Yes" : "No");
             starter.AddGameMenu("workshop_manage", "You are visiting your workshops.", new OnInitDelegate(args => { args.MenuTitle = new TextObject("Workshops", null); }), GameOverlays.MenuOverlayType.SettlementWithBoth, GameMenu.MenuFlags.none, (object)null);
             starter.AddGameMenuOption("town", "Workshop_Stash", "Manage your workshops", new GameMenuOption.OnConditionDelegate(HasAnyWorkshops), new GameMenuOption.OnConsequenceDelegate(x => GameMenu.SwitchToMenu("workshop_manage")), false, 6, false);
             starter.AddGameMenuOption("workshop_manage", "Workshop_Stash_Browse", "Browse your Stash", new GameMenuOption.OnConditionDelegate(StashCondition), new GameMenuOption.OnConsequenceDelegate(StashConsequence), false, -1, false);
