@@ -24,14 +24,13 @@ namespace WorkshopStashRON
             {
                 if (instruction.Calls(sufficientInputsMethod))
                 {
-                    yield return new CodeInstruction(OpCodes.Ldarg_2);
                     instruction.operand = typeof(WorkshopsCampaignBehavior_DoProduction_Patch).GetMethod("DetermineTownHasSufficientInputsReplacement", BindingFlags.Static | BindingFlags.Public);
                 }
                 yield return instruction;
             }
         }
 
-        private static bool DetermineTownHasSufficientInputsReplacement(WorkshopType.Production production, Town town, out int inputMaterialCost)
+        public static bool DetermineTownHasSufficientInputsReplacement(WorkshopType.Production production, Town town, out int inputMaterialCost)
         {
             ItemRoster stashRoster = null;
 

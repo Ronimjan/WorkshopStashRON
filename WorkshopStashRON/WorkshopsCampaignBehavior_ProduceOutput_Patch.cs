@@ -11,8 +11,8 @@ using TaleWorlds.ObjectSystem;
 
 namespace WorkshopStashRON
 {
-    [HarmonyPatch(typeof(WorkshopsCampaignBehavior), "ProductionOutput")]
-    public static class WorkshopsCampaignBehavior_ProductionOutput_Patch
+    [HarmonyPatch(typeof(WorkshopsCampaignBehavior), "ProduceOutput")]
+    public static class WorkshopsCampaignBehavior_ProduceOutput_Patch
     {
         public static bool Prefix(ItemCategory outputItem, Town town, Workshop workshop, int count, bool doNotEffectCapital)
         {
