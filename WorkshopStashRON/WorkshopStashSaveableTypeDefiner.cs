@@ -10,15 +10,10 @@ namespace WorkshopStashRON
 {
     public class WorkshopStashSaveableTypeDefiner : SaveableTypeDefiner
     {
-        public WorkshopStashSaveableTypeDefiner() : base(03060000) { }
+        public WorkshopStashSaveableTypeDefiner() : base(0306000) { }
         protected override void DefineClassTypes()
         {
             this.AddClassDefinition(typeof(WorkshopStash), 1);
-        }
-
-        protected override void DefineGenericClassDefinitions()
-        {
-            this.ConstructGenericClassDefinition(typeof(MBObjectManager.ObjectTypeRecord<WorkshopStash>));
         }
 
         protected override void DefineContainerDefinitions()

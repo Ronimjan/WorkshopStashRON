@@ -18,16 +18,16 @@ namespace WorkshopStashRON
             Stash = new ItemRoster();
         }
 
-        [SaveableProperty(030600)]
+        [SaveableProperty(4)]
         public Boolean InputTrue { get; set; } = true;
 
-        [SaveableProperty(030601)]
+        [SaveableProperty(5)]
         public Boolean OutputTrue { get; set; } = false;
 
-        [SaveableProperty(030602)]
+        [SaveableProperty(6)]
         public ItemRoster Stash { get; set; }
 
-        [SaveableProperty(030603)]
+        [SaveableProperty(7)]
         public Town Town { get; set; }
     }
 }
