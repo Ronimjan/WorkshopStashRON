@@ -10,7 +10,7 @@ using TaleWorlds.CampaignSystem.GameMenus;
 
 namespace WorkshopStashRON
 {
-    [SaveableClass(0306001)]
+    [SaveableClass(030600)]
     class WorkshopStash : MBObjectBase
     {
         public WorkshopStash()
@@ -18,16 +18,16 @@ namespace WorkshopStashRON
             Stash = new ItemRoster();
         }
 
-        [SaveableProperty(4)]
+        [SaveableProperty(04)]
         public Boolean InputTrue { get; set; } = true;
 
-        [SaveableProperty(5)]
+        [SaveableProperty(05)]
         public Boolean OutputTrue { get; set; } = false;
 
-        [SaveableProperty(6)]
+        [SaveableProperty(06)]
         public ItemRoster Stash { get; set; }
 
-        [SaveableProperty(7)]
+        [SaveableProperty(07)]
         public Town Town { get; set; }
     }
 }

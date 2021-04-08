@@ -9,10 +9,11 @@ using TaleWorlds.CampaignSystem.GameMenus;
 using TaleWorlds.CampaignSystem.Overlay;
 using TaleWorlds.Localization;
 using TaleWorlds.ObjectSystem;
+using TaleWorlds.SaveSystem;
 
 namespace WorkshopStashRON
 {
-    class  CampaignChanger : CampaignBehaviorBase
+    class CampaignChanger : CampaignBehaviorBase
     {
         public override void RegisterEvents()
         {
@@ -25,10 +26,10 @@ namespace WorkshopStashRON
             starter.AddGameMenu("workshop_manage", "You are visiting your workshops.", new OnInitDelegate(args => { args.MenuTitle = new TextObject("Workshops", null); }), GameOverlays.MenuOverlayType.SettlementWithBoth, GameMenu.MenuFlags.none, (object)null);
             starter.AddGameMenuOption("town", "Workshop_Stash", "Manage your workshops", new GameMenuOption.OnConditionDelegate(HasAnyWorkshops), new GameMenuOption.OnConsequenceDelegate(x => GameMenu.SwitchToMenu("workshop_manage")), false, 6, false);
             starter.AddGameMenuOption("workshop_manage", "Workshop_Stash_Browse", "Browse your Stash", new GameMenuOption.OnConditionDelegate(StashCondition), new GameMenuOption.OnConsequenceDelegate(StashConsequence), false, -1, false);
-            starter.AddGameMenuOption("workshop_manage", "Workshop_Toggle_Input", "Use materials from stash: {STASH_INPUT}" ,new GameMenuOption.OnConditionDelegate(ProductionCondition), new GameMenuOption.OnConsequenceDelegate(ToggleInput), false, -1, false);
+            starter.AddGameMenuOption("workshop_manage", "Workshop_Toggle_Input", "Use materials from stash: {STASH_INPUT}", new GameMenuOption.OnConditionDelegate(ProductionCondition), new GameMenuOption.OnConsequenceDelegate(ToggleInput), false, -1, false);
             starter.AddGameMenuOption("workshop_manage", "Workshop_Toggle_Output", "Put produced goods into stash: {STASH_OUTPUT}", new GameMenuOption.OnConditionDelegate(ProductionCondition), new GameMenuOption.OnConsequenceDelegate(ToggleOutput), false, -1, false);
             starter.AddGameMenuOption("workshop_manage", "Workshop_Leave", "Back to town center", new GameMenuOption.OnConditionDelegate(BackCondition), new GameMenuOption.OnConsequenceDelegate(_ => GameMenu.SwitchToMenu("town")), true, -1, false);
-            
+
         }
 
         private static void StashConsequence(MenuCallbackArgs args)
@@ -97,7 +98,9 @@ namespace WorkshopStashRON
 
         public override void SyncData(IDataStore dataStore)
         {
-            return;
+            dataStore.SyncData("workshopStashSaveDictionary", ref _workshopStashSaveDictionary);
         }
+        private Dictionary<string, List<WorkshopStash>> _workshopStashSaveDictionary = new Dictionary<string, List<WorkshopStash>>();
+
     }
 }

@@ -19,7 +19,7 @@ namespace WorkshopStashRON
                 starter.AddBehavior(new CampaignChanger());
             }
 
-            new HarmonyLib.Harmony("WorkshopStashMod.patcher").PatchAll();
+            new HarmonyLib.Harmony("WorkshopStashRON.patcher").PatchAll();
         }
     }
 }
