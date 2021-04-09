@@ -100,7 +100,7 @@ namespace WorkshopStashRON
         {
             dataStore.SyncData("workshopStashSaveDictionary", ref _workshopStashSaveDictionary);
         }
-        private Dictionary<string, List<WorkshopStash>> _workshopStashSaveDictionary = new Dictionary<string, List<WorkshopStash>>();
 
+        private Dictionary<string, List<WorkshopStash>> _workshopStashSaveDictionary = new Dictionary<string, List<WorkshopStash>>();
     }
 }

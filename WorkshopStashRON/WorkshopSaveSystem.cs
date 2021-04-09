@@ -9,7 +9,7 @@ namespace WorkshopStashRON
 {
     public class WorkshopSaveSystem : SaveableTypeDefiner
     {
-        public WorkshopSaveSystem() : base(0306001) { }
+        public WorkshopSaveSystem() : base(21630001) { }
 
         protected override void DefineClassTypes()
         {

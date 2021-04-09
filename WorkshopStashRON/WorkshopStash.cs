@@ -10,7 +10,7 @@ using TaleWorlds.CampaignSystem.GameMenus;
 
 namespace WorkshopStashRON
 {
-    [SaveableClass(030600)]
+    [SaveableClass(21630000)]
     class WorkshopStash : MBObjectBase
     {
         public WorkshopStash()
