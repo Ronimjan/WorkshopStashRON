@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TaleWorlds.CampaignSystem;
 using TaleWorlds.SaveSystem;
 
 namespace WorkshopStashRON
@@ -19,8 +20,7 @@ namespace WorkshopStashRON
         protected override void DefineContainerDefinitions()
         {
             ConstructContainerDefinition(typeof(List<WorkshopStash>));
-            ConstructContainerDefinition(typeof(Dictionary<string, List<WorkshopStash>>));
-            ConstructContainerDefinition(typeof(Dictionary<string, Dictionary<string, List<WorkshopStash>>>));
+            ConstructContainerDefinition(typeof(Dictionary<Town, WorkshopStash>));
         }
     }
 }

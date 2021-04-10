@@ -18,9 +18,9 @@ namespace WorkshopStashRON
         {
             if (workshop.Owner != Hero.MainHero) { return true; }
 
-            var stash = MBObjectManager.Instance.GetObject<WorkshopStash>(x => x.Town == town);
+            bool didWeFindIt = CampaignChanger.Current.QuickAccess.TryGetValue(town, out var stash);
 
-            if (stash == null || !stash.InputTrue) { return true; }
+            if (!didWeFindIt || !stash.InputTrue) { return true; }
 
             var index = stash.Stash.FindIndex(x => x.ItemCategory == productionInput);
 
@@ -29,7 +29,6 @@ namespace WorkshopStashRON
                 stash.Stash.AddToCounts(stash.Stash.GetItemAtIndex(index), -1);
                 return false;
             }
-
             return true;
         }
      

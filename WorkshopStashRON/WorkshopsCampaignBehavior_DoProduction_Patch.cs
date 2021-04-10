@@ -33,19 +33,15 @@ namespace WorkshopStashRON
         public static bool DetermineTownHasSufficientInputsReplacement(WorkshopType.Production production, Town town, out int inputMaterialCost)
         {
             ItemRoster stashRoster = null;
-
-            if (stashRoster != null)
+            for (int i = 0; i < town.Workshops.Length; i++)
             {
-                for (int i = 0; i < town.Workshops.Length; i++)
+                if (town.Workshops[i].Owner == Hero.MainHero)
                 {
-                    if (town.Workshops[i].Owner == Hero.MainHero)
-                    {
-                        var stash = MBObjectManager.Instance.GetObject<WorkshopStash>(x => x.Town == town);
+                    bool didWeFindIt = CampaignChanger.Current.QuickAccess.TryGetValue(town, out var stash);
 
-                        if (stash != null && stash.InputTrue)
-                        {
-                            stashRoster = stash.Stash;
-                        }
+                    if (didWeFindIt && stash.InputTrue)
+                    {
+                        stashRoster = stash.Stash;
                     }
                 }
             }
@@ -84,7 +80,7 @@ namespace WorkshopStashRON
                             inputMaterialCost = inputMaterialCost + town.GetItemPrice(itemAtIndex, null, false) * num;
                         }
                     }
-                    if (item2 <= 0)
+                    if (item2 >= 0)
                     {
                         continue;
                     }
@@ -93,6 +89,5 @@ namespace WorkshopStashRON
                 return true;
             }
         }
-
     }
 }

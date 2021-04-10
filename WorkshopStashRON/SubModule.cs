@@ -10,10 +10,9 @@ namespace WorkshopStashRON
     {
         protected override void OnGameStart(Game game, IGameStarter gameStarterObject)
         {
-            var a = new WorkshopSaveSystem();
             if (!(game.GameType is Campaign)) { return; }
 
-            MBObjectManager.Instance.RegisterType<WorkshopStash>("TownWorkshopStash", "TownWorkshopStashes", 21630002);
+            MBObjectManager.Instance.RegisterType<WorkshopStash>("workshop_Stash", "workshop_stash", 21630002);
 
             if (gameStarterObject is CampaignGameStarter starter)
             {

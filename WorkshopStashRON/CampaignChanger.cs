@@ -15,6 +15,17 @@ namespace WorkshopStashRON
 {
     class CampaignChanger : CampaignBehaviorBase
     {
+        public static CampaignChanger Current { get; private set; }
+
+        public Dictionary<Town, WorkshopStash> QuickAccess => _workshopStashSaveDictionary;
+
+        private Dictionary<Town, WorkshopStash> _workshopStashSaveDictionary = new Dictionary<Town, WorkshopStash>();
+
+        public CampaignChanger()
+        {
+            Current = this;
+        }
+
         public override void RegisterEvents()
         {
             CampaignEvents.OnNewGameCreatedEvent.AddNonSerializedListener((object)this, new Action<CampaignGameStarter>(this.OnAfterNewGameCreated));
@@ -29,7 +40,6 @@ namespace WorkshopStashRON
             starter.AddGameMenuOption("workshop_manage", "Workshop_Toggle_Input", "Use materials from stash: {STASH_INPUT}", new GameMenuOption.OnConditionDelegate(ProductionCondition), new GameMenuOption.OnConsequenceDelegate(ToggleInput), false, -1, false);
             starter.AddGameMenuOption("workshop_manage", "Workshop_Toggle_Output", "Put produced goods into stash: {STASH_OUTPUT}", new GameMenuOption.OnConditionDelegate(ProductionCondition), new GameMenuOption.OnConsequenceDelegate(ToggleOutput), false, -1, false);
             starter.AddGameMenuOption("workshop_manage", "Workshop_Leave", "Back to town center", new GameMenuOption.OnConditionDelegate(BackCondition), new GameMenuOption.OnConsequenceDelegate(_ => GameMenu.SwitchToMenu("town")), true, -1, false);
-
         }
 
         private static void StashConsequence(MenuCallbackArgs args)
@@ -61,14 +71,13 @@ namespace WorkshopStashRON
         private static WorkshopStash GetCurrentSettlementStash()
         {
             var town = Settlement.CurrentSettlement.GetComponent<Town>();
-            var stash = MBObjectManager.Instance.GetObject<WorkshopStash>(x => x.Town == town);
-
-            if (stash == null)
+            bool didWeFindIt = CampaignChanger.Current.QuickAccess.TryGetValue(town, out var stash);
+            if (!didWeFindIt)
             {
-                stash = MBObjectManager.Instance.CreateObject<WorkshopStash>();
+                stash = new WorkshopStash();
                 stash.Town = town;
+                CampaignChanger.Current.QuickAccess.Add(town, stash);
             }
-
             return stash;
         }
 
@@ -100,7 +109,5 @@ namespace WorkshopStashRON
         {
             dataStore.SyncData("workshopStashSaveDictionary", ref _workshopStashSaveDictionary);
         }
-
-        private Dictionary<string, List<WorkshopStash>> _workshopStashSaveDictionary = new Dictionary<string, List<WorkshopStash>>();
     }
 }

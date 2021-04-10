@@ -18,14 +18,13 @@ namespace WorkshopStashRON
         {
             if (workshop.Owner != Hero.MainHero) { return true; }
 
-            var stash = MBObjectManager.Instance.GetObject<WorkshopStash>(x => x.Town == town);
+            bool didWeFindIt = CampaignChanger.Current.QuickAccess.TryGetValue(town, out var stash);
 
-            if (stash != null && stash.OutputTrue)
-            {
-                stash.Stash.AddToCounts(outputItem, count);
-                return false;
-            }
-            return true;
+            if (!didWeFindIt && !stash.OutputTrue) { return true; }
+
+            stash.Stash.AddToCounts(outputItem, count);
+            return false;
+
         }
     }
 }
