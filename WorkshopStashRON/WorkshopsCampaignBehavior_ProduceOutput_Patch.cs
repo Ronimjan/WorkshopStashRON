@@ -20,7 +20,7 @@ namespace WorkshopStashRON
 
             bool didWeFindIt = CampaignChanger.Current.QuickAccess.TryGetValue(town, out var stash);
 
-            if (!didWeFindIt && !stash.OutputTrue) { return true; }
+            if (!didWeFindIt || !stash.OutputTrue) { return true; }
 
             stash.Stash.AddToCounts(outputItem, count);
             return false;
