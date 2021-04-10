@@ -22,6 +22,6 @@ RON WorkshopStash README.txt
 - WorkshopStash: even its broken, its the base version of this mods, so give it some love.
 
 [Credits]
-- "KeepUsingThisWord"/"mbkutw" for making the first version of this mod and its concept one year ago.
-- "KeepUsingThisWord"/"mbkutw" for helping me fixing and rewriting this mod.
+- "KeepUsingThatWord"/"mbkutw" for making the first version of this mod and its concept one year ago.
+- "KeepUsingThatWord"/"mbkutw" for helping me fixing and rewriting this mod.
 - "TaleWorlds" for making our dream of a new Mount & Blade become true.
