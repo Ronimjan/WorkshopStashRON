@@ -12,8 +12,6 @@ namespace WorkshopStashRON
         {
             if (!(game.GameType is Campaign)) { return; }
 
-            MBObjectManager.Instance.RegisterType<WorkshopStash>("workshop_Stash", "workshop_stash", 21630002);
-
             if (gameStarterObject is CampaignGameStarter starter)
             {
                 starter.AddBehavior(new CampaignChanger());
