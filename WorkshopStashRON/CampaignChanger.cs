@@ -1,4 +1,5 @@
 ﻿using Helpers;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.GameMenus;
 using TaleWorlds.CampaignSystem.Overlay;
+using TaleWorlds.Core;
 using TaleWorlds.Localization;
 using TaleWorlds.ObjectSystem;
 using TaleWorlds.SaveSystem;
@@ -107,7 +109,84 @@ namespace WorkshopStashRON
 
         public override void SyncData(IDataStore dataStore)
         {
-            dataStore.SyncData("workshopStashSaveDictionary", ref _workshopStashSaveDictionary);
+            Dictionary<string, (bool, bool, string)> workshopStashSaveDictionaryString = new Dictionary<string, (bool, bool, string)>();
+            Dictionary<string, int> temp;
+
+            if (dataStore.IsSaving)
+            {
+                foreach (Settlement town in Campaign.Current.Settlements)
+                {
+                    bool registered = _workshopStashSaveDictionary.TryGetValue(town.Town, out WorkshopStash stash);
+                    if (registered)
+                    {
+                        temp = new Dictionary<string, int>();
+                        for (int i = 0; i < stash.Stash.Count; i++)
+                        {
+                            temp.Add(stash.Stash.GetItemAtIndex(i).ToString(), stash.Stash.GetElementNumber(i));
+                        }
+
+                        string jsonList = JsonConvert.SerializeObject(temp);
+
+                        workshopStashSaveDictionaryString.Add(town.Town.ToString(), (stash.InputTrue, stash.OutputTrue, jsonList));
+                    }
+                }
+
+                string jsonString = JsonConvert.SerializeObject(workshopStashSaveDictionaryString);
+                dataStore.SyncData("workshopStashSaveDictionaryString", ref jsonString);
+
+                jsonString = JsonConvert.SerializeObject(SubModule.modVersion);
+                dataStore.SyncData("modVersionWorkshopStashRON", ref jsonString);
+            }
+            if (dataStore.IsLoading)
+            {
+                string jsonString = "";
+
+                if (dataStore.SyncData("modVersionWorkshopStashRON", ref jsonString) && !string.IsNullOrEmpty(jsonString))
+                {
+                    SubModule.modVersion = JsonConvert.DeserializeObject<float?>(jsonString);
+
+                }
+
+                if (!SubModule.modVersion.HasValue)
+                {
+                    dataStore.SyncData("workshopStashSaveDictionaryString", ref _workshopStashSaveDictionary);
+                    SubModule.modVersion = 1.1f;
+                }
+                else if(SubModule.modVersion == 1.1f)
+                {
+                    if (dataStore.SyncData("modVersionWorkshopStashRON", ref jsonString) && !string.IsNullOrEmpty(jsonString))
+                    {
+                        workshopStashSaveDictionaryString = JsonConvert.DeserializeObject<Dictionary<string, (bool, bool, string)>>(jsonString);
+
+                        foreach(Settlement town in Campaign.Current.Settlements)
+                        {
+                            bool registered = workshopStashSaveDictionaryString.TryGetValue(town.Town.ToString(), out (bool, bool, string) value);
+                            if (registered)
+                            {
+                                temp = JsonConvert.DeserializeObject<Dictionary<string, int>>(value.Item3);
+                                WorkshopStash tempWorkshopStash = new WorkshopStash();
+
+                                tempWorkshopStash.InputTrue = value.Item1;
+                                tempWorkshopStash.OutputTrue = value.Item2;
+                                tempWorkshopStash.Town = town.Town;
+
+                                foreach(ItemObject item in Campaign.Current.Items)
+                                {
+                                    bool registeredItem = temp.TryGetValue(item.ToString(), out int num);
+                                    if (registeredItem)
+                                    {
+                                        tempWorkshopStash.Stash.AddToCounts(item, num);
+                                    }
+                                }
+
+                                _workshopStashSaveDictionary.Add(town.Town, tempWorkshopStash);
+                            }
+                        }
+
+                    }
+                }
+
+            }
         }
     }
 }

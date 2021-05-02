@@ -8,6 +8,8 @@ namespace WorkshopStashRON
 {
     public class SubModule : MBSubModuleBase
     {
+        public static float? modVersion;
+
         protected override void OnGameStart(Game game, IGameStarter gameStarterObject)
         {
             if (!(game.GameType is Campaign)) { return; }
