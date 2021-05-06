@@ -116,18 +116,21 @@ namespace WorkshopStashRON
             {
                 foreach (Settlement town in Campaign.Current.Settlements)
                 {
-                    bool registered = _workshopStashSaveDictionary.TryGetValue(town.Town, out WorkshopStash stash);
-                    if (registered)
+                    if (town.IsTown)
                     {
-                        temp = new Dictionary<string, int>();
-                        for (int i = 0; i < stash.Stash.Count; i++)
+                        bool registered = _workshopStashSaveDictionary.TryGetValue(town.Town, out WorkshopStash stash);
+                        if (registered)
                         {
-                            temp.Add(stash.Stash.GetItemAtIndex(i).ToString(), stash.Stash.GetElementNumber(i));
+                            temp = new Dictionary<string, int>();
+                            for (int i = 0; i < stash.Stash.Count; i++)
+                            {
+                                temp.Add(stash.Stash.GetItemAtIndex(i).ToString(), stash.Stash.GetElementNumber(i));
+                            }
+
+                            string jsonList = JsonConvert.SerializeObject(temp);
+
+                            workshopStashSaveDictionaryString.Add(town.Town.ToString(), (stash.InputTrue, stash.OutputTrue, jsonList));
                         }
-
-                        string jsonList = JsonConvert.SerializeObject(temp);
-
-                        workshopStashSaveDictionaryString.Add(town.Town.ToString(), (stash.InputTrue, stash.OutputTrue, jsonList));
                     }
                 }
 
