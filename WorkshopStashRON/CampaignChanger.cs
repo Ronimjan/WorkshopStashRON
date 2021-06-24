@@ -3,15 +3,11 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TaleWorlds.CampaignSystem;
 using TaleWorlds.CampaignSystem.GameMenus;
 using TaleWorlds.CampaignSystem.Overlay;
 using TaleWorlds.Core;
 using TaleWorlds.Localization;
-using TaleWorlds.ObjectSystem;
-using TaleWorlds.SaveSystem;
 
 namespace WorkshopStashRON
 {
@@ -147,12 +143,11 @@ namespace WorkshopStashRON
                 if (dataStore.SyncData("modVersionWorkshopStashRON", ref jsonString) && !string.IsNullOrEmpty(jsonString))
                 {
                     SubModule.modVersion = JsonConvert.DeserializeObject<float?>(jsonString);
-
                 }
 
                 if (!SubModule.modVersion.HasValue)
                 {
-                    dataStore.SyncData("workshopStashSaveDictionaryString", ref _workshopStashSaveDictionary);
+                    dataStore.SyncData("workshopStashSaveDictionary", ref _workshopStashSaveDictionary);
                     SubModule.modVersion = 1.1f;
                 }
                 else if(SubModule.modVersion == 1.1f)

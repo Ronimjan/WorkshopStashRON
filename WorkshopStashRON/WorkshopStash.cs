@@ -1,16 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TaleWorlds.SaveSystem;
 using TaleWorlds.ObjectSystem;
 using TaleWorlds.CampaignSystem;
-using TaleWorlds.CampaignSystem.GameMenus;
-
 namespace WorkshopStashRON
 {
-    [SaveableClass(21630000)]
+    [SaveableRootClass(21630000)]
     class WorkshopStash : MBObjectBase
     {
         public WorkshopStash()
