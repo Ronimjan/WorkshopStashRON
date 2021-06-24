@@ -152,13 +152,13 @@ namespace WorkshopStashRON
                 }
                 else if(SubModule.modVersion == 1.1f)
                 {
-                    if (dataStore.SyncData("modVersionWorkshopStashRON", ref jsonString) && !string.IsNullOrEmpty(jsonString))
+                    if (dataStore.SyncData("workshopStashSaveDictionaryString", ref jsonString) && !string.IsNullOrEmpty(jsonString))
                     {
                         workshopStashSaveDictionaryString = JsonConvert.DeserializeObject<Dictionary<string, (bool, bool, string)>>(jsonString);
 
-                        foreach(Settlement town in Campaign.Current.Settlements)
+                        foreach(Town town in Town.AllTowns)
                         {
-                            bool registered = workshopStashSaveDictionaryString.TryGetValue(town.Town.ToString(), out (bool, bool, string) value);
+                            bool registered = workshopStashSaveDictionaryString.TryGetValue(town.ToString(), out (bool, bool, string) value);
                             if (registered)
                             {
                                 temp = JsonConvert.DeserializeObject<Dictionary<string, int>>(value.Item3);
@@ -166,7 +166,7 @@ namespace WorkshopStashRON
 
                                 tempWorkshopStash.InputTrue = value.Item1;
                                 tempWorkshopStash.OutputTrue = value.Item2;
-                                tempWorkshopStash.Town = town.Town;
+                                tempWorkshopStash.Town = town;
 
                                 foreach(ItemObject item in Campaign.Current.Items)
                                 {
@@ -177,7 +177,7 @@ namespace WorkshopStashRON
                                     }
                                 }
 
-                                _workshopStashSaveDictionary.Add(town.Town, tempWorkshopStash);
+                                _workshopStashSaveDictionary.Add(town, tempWorkshopStash);
                             }
                         }
 
