@@ -120,7 +120,16 @@ namespace WorkshopStashRON
                             temp = new Dictionary<string, int>();
                             for (int i = 0; i < stash.Stash.Count; i++)
                             {
-                                temp.Add(stash.Stash.GetItemAtIndex(i).ToString(), stash.Stash.GetElementNumber(i));
+                                try
+                                {
+                                    temp.Add(stash.Stash.GetItemAtIndex(i).ToString(), stash.Stash.GetElementNumber(i));
+                                }
+                                catch(ArgumentException e)
+                                {
+                                    int ammount = temp[stash.Stash.GetItemAtIndex(i).ToString()];
+                                    temp.Remove(stash.Stash.GetItemAtIndex(i).ToString());
+                                    temp.Add(stash.Stash.GetItemAtIndex(i).ToString(), stash.Stash.GetElementNumber(i)+ammount);
+                                }
                             }
 
                             string jsonList = JsonConvert.SerializeObject(temp);
